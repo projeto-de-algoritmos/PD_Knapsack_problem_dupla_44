@@ -1,4 +1,6 @@
 #from Tkinter import *
+import tkinter
+from tkinter import *
 import tkinter as tk
 from tkinter.ttk import *
 
