@@ -1,0 +1,30 @@
+import os
+import pygame
+import tkinter as tk
+from tkinter import Tk, Button, Label, Frame
+from PIL import Image, ImageTk
+
+root = Tk()
+root.title('Test buttons')
+root.geometry("600x600")
+
+file = "Modded_wagon.png"
+
+bg = ImageTk.PhotoImage(file=file)
+label = Label(root, image=bg)
+label.place(x=0, y=0)
+
+frame = Frame(root)
+frame.pack(pady=20)
+
+# Add buttons
+button1 = Button(frame, text="Exit")
+button1.pack(pady=20)
+
+button2 = Button(frame, text="Start")
+button2.pack(pady=20)
+
+button3 = Button(frame, text="Reset")
+button3.pack(pady=20)
+
+root.mainloop()
