@@ -4,6 +4,14 @@ import tkinter as tk
 from tkinter import Tk, Button, Label, Frame
 from PIL import Image, ImageTk
 
+def changeOnHover(button, colorOnHover, colorOnLeave):
+ 
+    button.bind("<Enter>", func=lambda e: button.config(
+        background=colorOnHover))
+ 
+    button.bind("<Leave>", func=lambda e: button.config(
+        background=colorOnLeave))
+
 root = Tk()
 root.title('Test buttons')
 root.geometry("600x600")
@@ -31,13 +39,16 @@ frame = Frame(root)
 frame.pack(pady=20)
 
 # Adicione os botões
-button1 = Button(frame, text="Exit")
+button1 = Button(frame, text="Exit", bg="red")
 button1.pack(pady=20)
+changeOnHover(button1, "red", "red")
 
-button2 = Button(frame, text="Start")
-button2.pack(pady=20)
-
-button3 = Button(frame, text="Reset")
+button3 = Button(frame, text="Reset", bg="yellow")
 button3.pack(pady=20)
+changeOnHover(button3, "red", "yellow")
+
+button2 = Button(frame, text="Start", bg="green")
+button2.pack(pady=20)
+changeOnHover(button2, "red", "green")
 
 root.mainloop()
