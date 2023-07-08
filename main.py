@@ -11,25 +11,53 @@ from PIL import Image, ImageTk
 # we can say recursion + memoization = DP
  
  
-def knapsack(wt, val, W, n):
+# def knapsack(wt, val, W, n):
  
-    # base conditions
-    if n == 0 or W == 0:
-        return 0
-    if t[n][W] != -1:
-        return t[n][W]
+#     # base conditions
+#     if n == 0 or W == 0:
+#         return 0
+#     if t[n][W] != -1:
+#         return t[n][W]
  
-    # choice diagram code
-    if wt[n-1] <= W:
-        t[n][W] = max(
-            val[n-1] + knapsack(
-                wt, val, W-wt[n-1], n-1),
-            knapsack(wt, val, W, n-1))
-        return t[n][W]
-    elif wt[n-1] > W:
-        t[n][W] = knapsack(wt, val, W, n-1)
-        return t[n][W]
- 
+#     # choice diagram code
+#     if wt[n-1] <= W:
+#         t[n][W] = max(
+#             val[n-1] + knapsack(
+#                 wt, val, W-wt[n-1], n-1),
+#             knapsack(wt, val, W, n-1))
+#         return t[n][W]
+#     elif wt[n-1] > W:
+#         t[n][W] = knapsack(wt, val, W, n-1)
+#         return t[n][W]
+
+def knapsack(capacidade, pesos, valores):
+    n = len(pesos)
+    dp = [[0] * (capacidade + 1) for _ in range(n + 1)]
+
+    for i in range(n + 1):
+        for w in range(capacidade + 1):
+            if i == 0 or w == 0:
+                dp[i][w] = 0
+            elif pesos[i - 1] <= w:
+                dp[i][w] = max(valores[i - 1] + dp[i - 1][w - pesos[i - 1]], dp[i - 1][w])
+            else:
+                dp[i][w] = dp[i - 1][w]
+
+    valor_maximo = dp[n][capacidade]
+    itens_selecionados = []
+    w = capacidade
+    for i in range(n, 0, -1):
+        if valor_maximo <= 0:
+            break
+        if valor_maximo == dp[i - 1][w]:
+            continue
+        else:
+            itens_selecionados.append(i - 1)
+            valor_maximo -= valores[i - 1]
+            w -= pesos[i - 1]
+
+    return dp[n][capacidade], itens_selecionados[::-1]
+
 # Driver code
 if __name__ == '__main__':
     profit = [60, 100, 120]
@@ -39,8 +67,9 @@ if __name__ == '__main__':
      
     # We initialize the matrix with -1 at first.
     t = [[-1 for i in range(W + 1)] for j in range(n + 1)]
-    print(knapsack(weight, profit, W, n))
- 
+    # print(knapsack(weight, profit, W, n))
+    print(knapsack(W, weight, profit))
+
 # This code is contributed by Prosun Kumar Sarkar
 
 def Mostra_Mochila(result, packs):
