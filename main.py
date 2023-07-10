@@ -4,7 +4,7 @@ from tkinter import *
 import tkinter as tk
 from tkinter.ttk import *
 from PIL import Image, ImageTk
-
+import tkinter.messagebox
 
 # This is the memoization approach of
 # 0 / 1 Knapsack in Python in simple
@@ -59,16 +59,16 @@ def knapsack(capacidade, pesos, valores):
     return dp[n][capacidade], itens_selecionados[::-1]
 
 # Driver code
-if __name__ == '__main__':
-    profit = [60, 100, 120]
-    weight = [10, 20, 30]
-    W = 50
-    n = len(profit)
+#if __name__ == '__main__':
+ #   profit = [60, 100, 120]
+  #  weight = [10, 20, 30]
+   # W = 50
+    #n = len(profit)
      
     # We initialize the matrix with -1 at first.
-    t = [[-1 for i in range(W + 1)] for j in range(n + 1)]
+    #t = [[-1 for i in range(W + 1)] for j in range(n + 1)]
     # print(knapsack(weight, profit, W, n))
-    print(knapsack(W, weight, profit))
+    #print(knapsack(W, weight, profit))
 
 # This code is contributed by Prosun Kumar Sarkar
 
@@ -84,25 +84,6 @@ def Mostra_Mochila(result, packs):
                   fg = "#90EE90")
     # Define the size of the window.
     root.geometry("600x600") 
-
-    file = "Modded_wagon.png"
-
-    # Obtenha as dimensões do frame
-    frame_width = 600
-    frame_height = 600
-
-    # Carregue a imagem original
-    original_image = Image.open(file)
-
-    # Redimensione a imagem para o tamanho do frame
-    resized_image = original_image.resize((frame_width, frame_height), Image.ANTIALIAS)
-
-    # Crie o objeto ImageTk a partir da imagem redimensionada
-    bg = ImageTk.PhotoImage(resized_image)
-
-    # Crie o label com a imagem redimensionada
-    label = Label(root, image=bg)
-    label.place(x=0, y=0)
 
     frame = Frame(root)
     frame.pack(pady=20)
@@ -121,6 +102,13 @@ def Mostra_Mochila(result, packs):
     label.pack()
     listbox.pack()
     listbox.configure(justify='center')
+
+    def voltar():
+        print("Ze da manga")
+
+    btn1 = Button(root, text="Voltar", command=voltar)
+    btn1.pack()
+
     root.mainloop()
  
 class KnapsackPackage(object):
@@ -168,8 +156,8 @@ class Passwordchecker(tk.Frame):
        self.initialize_user_interface()
 
    def initialize_user_interface(self):
-       self.parent.geometry("600x600")
-       self.parent.title("Pokeirmanos")
+       #self.parent.geometry("600x600")
+       self.parent.title("Mochila")
        self.label=tk.Label(self.parent,text="Insira a quantidade de itens")
        self.label.configure(bg='#5E2C04', fg='#90EE90')
        self.label.pack()
@@ -190,27 +178,32 @@ class Passwordchecker(tk.Frame):
        self.label.pack()
        self.entry3=tk.Entry(self.parent)
        self.entry3.pack()
-       self.button=tk.Button(self.parent,text="Verificar", command=self.PassCheck)
+       self.button=tk.Button(self.parent,text="Verificar", command=self.PassCheck, background='Green')
        self.button.pack()
        
    def PassCheck(self):
         size = self.entry.get()
         peso = self.entry1.get()
-        IP = list(map(int, self.entry2.get().split()))
-        Valor = list(map(int, self.entry3.get().split()))
-        
-        # W = [30, 10, 2, 4] #-> peso do item
-        # V = [50, 25, 2, 6] #-> valor do item
-        # M = 37 #-> mochiila
-        # n = 4 #-> numero de itens
-        N = int(size)
-        W = IP #-> IP = Item Peso
-        M = int(peso) #-> peso total da mochila
-        V = Valor
 
-        print("size", size, "N:" , N , "W:", W , "M:", M , "V", V)        
-        proc = FractionalKnapsack()
-        proc.knapsackGreProc(W, V, M, N)
+        if not all([size, peso]):
+            tk.messagebox.showwarning("Error", "um ou mais espaços em branco") 
+        else:
+            IP = list(map(int, self.entry2.get().split()))
+            Valor = list(map(int, self.entry3.get().split()))
+            
+            # W = [30, 10, 2, 4] #-> peso do item
+            # V = [50, 25, 2, 6] #-> valor do item
+            # M = 37 #-> mochiila
+            # n = 4 #-> numero de itens
+            N = int(size)
+            W = IP #-> IP = Item Peso
+            M = int(peso) #-> peso total da mochila
+            V = Valor
+
+            print("size", size, "N:" , N , "W:", W , "M:", M , "V", V)        
+            proc = FractionalKnapsack()
+            proc.knapsackGreProc(W, V, M, N)
+            
        
 
  
@@ -218,34 +211,14 @@ class Passwordchecker(tk.Frame):
 # function to open a new window
 # on a button click
 def openNewWindow():
-     
-    # Toplevel object which will
-    # be treated as a new window
-    #newWindow = tk.Toplevel(master)
     root = tk.Tk()
-    file = "Modded_wagon.png"
+    root.geometry("600x600")
+    root.configure(bg='#5E2C04')
 
-    # Obtenha as dimensões do frame
-    frame_width = 600
-    frame_height = 600
-
-    # Carregue a imagem original
-    original_image = Image.open(file)
-
-    # Redimensione a imagem para o tamanho do frame
-    resized_image = original_image.resize((frame_width, frame_height), Image.ANTIALIAS)
-
-    # Crie o objeto ImageTk a partir da imagem redimensionada
-    bg = ImageTk.PhotoImage(resized_image)
-
-    # Crie o label com a imagem redimensionada
-    label = Label(root, image=bg)
-    label.place(x=0, y=0)
-
-    frame = Frame(root)
-    frame.pack(pady=20)
     run = Passwordchecker(root)
     root.mainloop()
+
+
  
 
 
@@ -273,7 +246,7 @@ if __name__ == "__main__":
     original_image = Image.open(file)
 
     # Redimensione a imagem para o tamanho do frame
-    resized_image = original_image.resize((frame_width, frame_height), Image.ANTIALIAS)
+    resized_image = original_image.resize((frame_width, frame_height), Image.LANCZOS)
 
     # Crie o objeto ImageTk a partir da imagem redimensionada
     bg = ImageTk.PhotoImage(resized_image)
@@ -291,14 +264,13 @@ if __name__ == "__main__":
     # a button widget which will open a
     # new window on button click
     btn = Button(master,
-                text ="Iniciar",
+                text ="Iniciar", 
                 command = openNewWindow)
     btn.pack(pady = 10)
 
-    btn2 = Button(master,
-                text ="Sair",
-                command = quit)
+    btn2 = Button(master, text ="Sair", command = quit)
     btn2.pack(pady = 20) 
+
     master.configure(bg='#5E2C04')
     # mainloop, runs infinitely
     tk.mainloop()
