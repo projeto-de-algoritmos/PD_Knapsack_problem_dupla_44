@@ -69,7 +69,8 @@ Apos a instalação das bibliotecas executar o seguinte comando na raiz do proje
 python3 main.py
 ```
 ## Vídeo
-[Vídeo de aprensentação](/Vídeo/Dupla 44.mp4)
+[Vídeo de apresentação](./Vídeo/Dupla%2044.mp4)
+
 
 
 
